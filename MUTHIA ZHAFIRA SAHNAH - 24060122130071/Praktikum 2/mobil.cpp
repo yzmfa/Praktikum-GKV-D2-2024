@@ -4,14 +4,26 @@
 
 #include <GL/glut.h>
 
+
+float wheelAngle = 0.0; // variabel untuk menyimpan sudut rotasi roda
+
+void update(int value) {
+    wheelAngle += 2.0; // Menambah sudut rotasi sebesar 2 derajat setiap pemanggilan
+    if (wheelAngle > 360) {
+        wheelAngle -= 360; // Kembalikan sudut rotasi ke 0 jika melebihi 360 derajat
+    }
+    glutPostRedisplay(); // Memanggil ulang fungsi display untuk menggambar ulang layar
+    glutTimerFunc(1000/60, update, 0); // Panggil fungsi update lagi setelah 1/60 detik
+}
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     
     // Gambar jalan raya (abu-abu)
     glBegin(GL_QUADS);
     glColor3f(0.5, 0.5, 0.5); // Abu-abu
-    glVertex2f(-1.0, -0.25);
-    glVertex2f(1.0, -0.25);
+    glVertex2f(-1.0, -0.35);
+    glVertex2f(1.0, -0.35);
     glVertex2f(1.0, -1.0);
     glVertex2f(-1.0, -1.0);
     glEnd();
@@ -73,12 +85,14 @@ void display() {
     // Gambar roda kiri
     glColor3f(0.0, 0.0, 0.0); // Hitam
     glPushMatrix();
+    glRotated(0.0,0.0,0.0,5.0);
     glTranslatef(-0.35, -0.3, 0.0);
     glutSolidTorus(0.05, 0.1, 100, 100);
     glPopMatrix();
     
     // Gambar roda kanan
     glPushMatrix();
+    glRotated(0.0,0.0,0.0,5.0);
     glTranslatef(0.35, -0.3, 0.0);
     glutSolidTorus(0.05, 0.1, 100, 100);
     glPopMatrix();
@@ -102,4 +116,3 @@ int main(int argc, char** argv) {
     glutMainLoop();
     return 0;
 }
-
