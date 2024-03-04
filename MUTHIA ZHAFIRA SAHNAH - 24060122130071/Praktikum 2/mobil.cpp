@@ -4,18 +4,6 @@
 
 #include <GL/glut.h>
 
-
-float wheelAngle = 0.0; // variabel untuk menyimpan sudut rotasi roda
-
-void update(int value) {
-    wheelAngle += 2.0; // Menambah sudut rotasi sebesar 2 derajat setiap pemanggilan
-    if (wheelAngle > 360) {
-        wheelAngle -= 360; // Kembalikan sudut rotasi ke 0 jika melebihi 360 derajat
-    }
-    glutPostRedisplay(); // Memanggil ulang fungsi display untuk menggambar ulang layar
-    glutTimerFunc(1000/60, update, 0); // Panggil fungsi update lagi setelah 1/60 detik
-}
-
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     
